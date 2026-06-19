@@ -1,11 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { v2 as cloudinary } from "cloudinary";
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,24 +11,13 @@ export async function POST(request: NextRequest) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
-    const result = await new Promise<any>((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          folder: "handicraft",
-          resource_type: "image",
-        },
-        (error, result) => {
-          if (error) reject(error);
-          else resolve(result);
-        }
-      );
-      uploadStream.end(buffer);
-    });
+    const base64 = buffer.toString("base64");
+    const mime = file.type || "image/png";
+    const dataUrl = `data:${mime};base64,${base64}`;
 
     return NextResponse.json({
-      url: result.secure_url,
-      filename: result.public_id,
+      url: dataUrl,
+      filename: file.name,
     });
   } catch (error) {
     console.error("Upload error:", error);
