@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeQuery } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +10,10 @@ interface DynamicPageProps {
 
 export async function generateMetadata({ params }: DynamicPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = await prisma.pageContent.findUnique({ where: { slug, published: true } });
+  const page = await safeQuery(() =>
+    prisma.pageContent.findUnique({ where: { slug, published: true } }),
+    null
+  );
   if (!page) return { title: "Page Not Found" };
   return {
     title: `${page.title} | Ratnagiri`,
@@ -27,9 +30,12 @@ export default async function DynamicPage({ params }: DynamicPageProps) {
     notFound();
   }
 
-  const page = await prisma.pageContent.findUnique({
-    where: { slug, published: true },
-  });
+  const page = await safeQuery(() =>
+    prisma.pageContent.findUnique({
+      where: { slug, published: true },
+    }),
+    null
+  );
 
   if (!page) {
     notFound();

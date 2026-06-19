@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeQuery } from "@/lib/prisma";
 import { ProductCard } from "@/components/shared/product-card";
 import type { Product, Category } from "@/types";
 
@@ -22,11 +22,17 @@ export default async function JewelryPage({ searchParams }: JewelryPageProps) {
   const priceRange = typeof params.price === "string" ? params.price : undefined;
 
   const [allProducts, categories] = await Promise.all([
-    prisma.product.findMany({
-      include: { category: true, collection: true },
-      orderBy: { createdAt: "desc" },
-    }),
-    prisma.category.findMany({ orderBy: { title: "asc" } }),
+    safeQuery(() =>
+      prisma.product.findMany({
+        include: { category: true, collection: true },
+        orderBy: { createdAt: "desc" },
+      }),
+      []
+    ),
+    safeQuery(() =>
+      prisma.category.findMany({ orderBy: { title: "asc" } }),
+      []
+    ),
   ]);
 
   let filteredProducts = [...allProducts];

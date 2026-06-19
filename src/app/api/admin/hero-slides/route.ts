@@ -3,8 +3,13 @@ import { prisma } from "@/lib/prisma";
 import { getUserFromRequest } from "@/lib/auth";
 
 export async function GET() {
-  const slides = await prisma.heroSlide.findMany({ orderBy: { order: "asc" } });
-  return NextResponse.json(slides);
+  try {
+    const slides = await prisma.heroSlide.findMany({ orderBy: { order: "asc" } });
+    return NextResponse.json(slides);
+  } catch (error) {
+    console.error("HeroSlides GET error:", error);
+    return NextResponse.json([]);
+  }
 }
 
 export async function POST(request: NextRequest) {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeQuery } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +12,10 @@ interface BlogPostPageProps {
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({ where: { slug } });
+  const post = await safeQuery(() =>
+    prisma.blogPost.findUnique({ where: { slug } }),
+    null
+  );
 
   if (!post) {
     return { title: "Story Not Found" };
@@ -34,7 +37,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({ where: { slug } });
+  const post = await safeQuery(() =>
+    prisma.blogPost.findUnique({ where: { slug } }),
+    null
+  );
 
   if (!post) {
     notFound();

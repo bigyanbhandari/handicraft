@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeQuery } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -11,9 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default async function StoriesPage() {
-  const posts = await prisma.blogPost.findMany({
-    orderBy: { publishedAt: "desc" },
-  });
+  const posts = await safeQuery(() =>
+    prisma.blogPost.findMany({
+      orderBy: { publishedAt: "desc" },
+    }),
+    []
+  );
 
   const featuredPost = posts[0];
   const remainingPosts = posts.slice(1);

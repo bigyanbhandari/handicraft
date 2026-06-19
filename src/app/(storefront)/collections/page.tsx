@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeQuery } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -11,10 +11,13 @@ export const metadata: Metadata = {
 };
 
 export default async function CollectionsPage() {
-  const collections = await prisma.collection.findMany({
-    include: { _count: { select: { products: true } } },
-    orderBy: { title: "asc" },
-  });
+  const collections = await safeQuery(() =>
+    prisma.collection.findMany({
+      include: { _count: { select: { products: true } } },
+      orderBy: { title: "asc" },
+    }),
+    []
+  );
 
   return (
     <main className="min-h-screen bg-white">

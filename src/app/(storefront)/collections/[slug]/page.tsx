@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { prisma, safeQuery } from "@/lib/prisma";
 import { ProductCard } from "@/components/shared/product-card";
 import type { Product } from "@/types";
 
@@ -14,7 +14,10 @@ interface CollectionPageProps {
 
 export async function generateMetadata({ params }: CollectionPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const collection = await prisma.collection.findUnique({ where: { slug } });
+  const collection = await safeQuery(() =>
+    prisma.collection.findUnique({ where: { slug } }),
+    null
+  );
 
   if (!collection) {
     return { title: "Collection Not Found" };
@@ -35,15 +38,18 @@ export async function generateMetadata({ params }: CollectionPageProps): Promise
 
 export default async function CollectionPage({ params }: CollectionPageProps) {
   const { slug } = await params;
-  const collection = await prisma.collection.findUnique({
-    where: { slug },
-    include: {
-      products: {
-        include: { category: true },
-        orderBy: { createdAt: "desc" },
+  const collection = await safeQuery(() =>
+    prisma.collection.findUnique({
+      where: { slug },
+      include: {
+        products: {
+          include: { category: true },
+          orderBy: { createdAt: "desc" },
+        },
       },
-    },
-  });
+    }),
+    null
+  );
 
   if (!collection) {
     notFound();

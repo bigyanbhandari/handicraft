@@ -3,8 +3,13 @@ import { prisma } from "@/lib/prisma";
 import { getUserFromRequest } from "@/lib/auth";
 
 export async function GET() {
-  const pages = await prisma.pageContent.findMany({ orderBy: { title: "asc" } });
-  return NextResponse.json(pages);
+  try {
+    const pages = await prisma.pageContent.findMany({ orderBy: { title: "asc" } });
+    return NextResponse.json(pages);
+  } catch (error) {
+    console.error("Admin pages GET error:", error);
+    return NextResponse.json([]);
+  }
 }
 
 export async function POST(request: NextRequest) {
