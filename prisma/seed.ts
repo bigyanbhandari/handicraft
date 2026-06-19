@@ -6,19 +6,20 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("Seeding database...");
 
-  // Create admin user
-  const adminPassword = await bcrypt.hash("admin123", 12);
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@ratnagiri.com";
+  const adminPasswordPlain = process.env.ADMIN_PASSWORD || "admin123";
+  const adminPassword = await bcrypt.hash(adminPasswordPlain, 12);
   await prisma.user.upsert({
-    where: { email: "admin@ratnagiri.com" },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: "admin@ratnagiri.com",
+      email: adminEmail,
       name: "Admin",
       password: adminPassword,
       role: "admin",
     },
   });
-  console.log("Admin user created: admin@ratnagiri.com / admin123");
+  console.log(`Admin user created: ${adminEmail} / ${adminPasswordPlain}`);
 
   // Create categories
   const categories = await Promise.all([
