@@ -41,6 +41,7 @@ export async function PUT(request: NextRequest) {
       });
     }
     invalidateCache("site-settings");
+    invalidateCache("home:siteSettings");
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Failed to save settings" }, { status: 500 });

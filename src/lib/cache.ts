@@ -28,3 +28,15 @@ export function invalidateCache(pattern?: string): void {
     if (key.startsWith(pattern)) store.delete(key);
   }
 }
+
+export async function withCache<T>(
+  key: string,
+  fn: () => Promise<T>,
+  ttlSeconds = 60
+): Promise<T> {
+  const cached = getCached<T>(key);
+  if (cached !== undefined) return cached;
+  const data = await fn();
+  setCache(key, data, ttlSeconds);
+  return data;
+}

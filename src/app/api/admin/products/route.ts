@@ -45,6 +45,7 @@ export async function POST(request: NextRequest) {
       include: { category: true, collection: true },
     });
     invalidateCache("products");
+    invalidateCache("home:featuredProducts");
     return NextResponse.json(product, { status: 201 });
   } catch (error) {
     console.error("Admin products POST error:", error);

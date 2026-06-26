@@ -21,6 +21,8 @@ export async function POST(request: NextRequest) {
     const category = await prisma.category.create({
       data: { title: data.title, slug: data.slug, description: data.description || null, image: data.image || null },
     });
+    invalidateCache("categories");
+    invalidateCache("home:categories");
     return NextResponse.json(category, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create category" }, { status: 500 });
@@ -37,6 +39,8 @@ export async function PUT(request: NextRequest) {
       where: { id: data.id },
       data: { title: data.title, slug: data.slug, description: data.description || null, image: data.image || null },
     });
+    invalidateCache("categories");
+    invalidateCache("home:categories");
     return NextResponse.json(category);
   } catch (error) {
     return NextResponse.json({ error: "Failed to update category" }, { status: 500 });
@@ -50,6 +54,8 @@ export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
     await prisma.category.delete({ where: { id } });
+    invalidateCache("categories");
+    invalidateCache("home:categories");
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete category" }, { status: 500 });

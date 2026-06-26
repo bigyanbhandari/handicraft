@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma, safeQuery } from "@/lib/prisma";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Collections",

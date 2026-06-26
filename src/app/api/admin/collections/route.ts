@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
       },
     });
     invalidateCache("collections");
+    invalidateCache("home:collections");
     return NextResponse.json(collection, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create collection" }, { status: 500 });
@@ -51,6 +52,7 @@ export async function PUT(request: NextRequest) {
       },
     });
     invalidateCache("collections");
+    invalidateCache("home:collections");
     return NextResponse.json(collection);
   } catch (error) {
     return NextResponse.json({ error: "Failed to update collection" }, { status: 500 });
@@ -65,6 +67,7 @@ export async function DELETE(request: NextRequest) {
     const { id } = await request.json();
     await prisma.collection.delete({ where: { id } });
     invalidateCache("collections");
+    invalidateCache("home:collections");
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete collection" }, { status: 500 });

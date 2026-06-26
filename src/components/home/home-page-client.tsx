@@ -28,8 +28,8 @@ interface HomePageClientProps {
 }
 
 export function HomePageClient({ featuredProducts, categories, collections, heroSlides, settings }: HomePageClientProps) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const [autoplayMounted, setAutoplayMounted] = useState(false);
+  useEffect(() => setAutoplayMounted(true), []);
 
   const newArrivals = featuredProducts.slice(0, 8);
   const hasCategories = categories.length > 0;
@@ -37,12 +37,16 @@ export function HomePageClient({ featuredProducts, categories, collections, hero
   const hasNewArrivals = newArrivals.length > 0;
   const hasHero = heroSlides.length > 0;
 
+  const autoplayPlugins = autoplayMounted
+    ? [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]
+    : [];
+
   return (
     <main>
-      {hasHero && mounted ? (
+      {hasHero ? (
         <EmblaCarousel
           opts={{ loop: true, align: "start" }}
-          plugins={[Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]}
+          plugins={autoplayPlugins}
           className="relative"
         >
           <CarouselContent>

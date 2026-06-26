@@ -22,6 +22,8 @@ export async function POST(request: NextRequest) {
     const slide = await prisma.heroSlide.create({
       data: { title: data.title, subtitle: data.subtitle || null, ctaText: data.ctaText || null, ctaLink: data.ctaLink || null, image: data.image || null, order: (maxOrder._max.order || 0) + 1 },
     });
+    invalidateCache("hero-slides");
+    invalidateCache("home:heroSlides");
     return NextResponse.json(slide, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Failed to create slide" }, { status: 500 });
@@ -37,6 +39,8 @@ export async function PUT(request: NextRequest) {
       where: { id: data.id },
       data: { title: data.title, subtitle: data.subtitle || null, ctaText: data.ctaText || null, ctaLink: data.ctaLink || null, image: data.image || null, order: data.order, active: data.active },
     });
+    invalidateCache("hero-slides");
+    invalidateCache("home:heroSlides");
     return NextResponse.json(slide);
   } catch {
     return NextResponse.json({ error: "Failed to update slide" }, { status: 500 });
@@ -49,6 +53,8 @@ export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
     await prisma.heroSlide.delete({ where: { id } });
+    invalidateCache("hero-slides");
+    invalidateCache("home:heroSlides");
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Failed to delete slide" }, { status: 500 });
