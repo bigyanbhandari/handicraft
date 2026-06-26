@@ -1,41 +1,98 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Search, Menu, X, User } from "lucide-react";
+import { ShoppingBag, Search, Menu, X, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCartStore } from "@/store/cart";
+import type { Category } from "@/types";
 
-const NAV_LINKS = [
-  { href: "/jewelry", label: "All Jewelry" },
-  { href: "/jewelry?category=temple-jewelry", label: "Temple" },
-  { href: "/jewelry?category=kundan-jewelry", label: "Kundan" },
-  { href: "/jewelry?category=jadau-jewelry", label: "Jadau" },
-  { href: "/jewelry?category=silver-jewelry", label: "Silver" },
-  { href: "/jewelry?category=brass-jewelry", label: "Brass" },
-  { href: "/jewelry?category=gemstone-jewelry", label: "Gemstone" },
+const TOP_LINKS = [
   { href: "/collections", label: "Collections" },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact" },
   { href: "/stories", label: "Stories" },
 ];
+
+const staggerVariants = {
+  hidden: { opacity: 0, y: 8 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.05, duration: 0.25, ease: "easeOut" as const },
+  }),
+};
+
+const dropdownVariants = {
+  hidden: { opacity: 0, y: -4, scaleY: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scaleY: 1,
+    transition: { duration: 0.2, ease: "easeOut" as const },
+  },
+  exit: {
+    opacity: 0,
+    y: -4,
+    scaleY: 0.95,
+    transition: { duration: 0.15, ease: "easeIn" as const },
+  },
+};
+
+let cachedCategories: Category[] | null = null;
+let cachedUser: { name: string; email: string; role: string } | null = null;
+let userFetched = false;
 
 export function Header() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [user, setUser] = useState<{ name: string; email: string; role: string } | null>(null);
+  const [user, setUser] = useState<{ name: string; email: string; role: string } | null>(cachedUser);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [catOpen, setCatOpen] = useState(false);
+  const [categories, setCategories] = useState<Category[]>(cachedCategories ?? []);
+  const catRef = useRef<HTMLDivElement>(null);
   const itemCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
 
   useEffect(() => {
-    fetch("/api/auth/me")
+    if (!userFetched) {
+      userFetched = true;
+      fetch("/api/auth/me")
+        .then((r) => r.json())
+        .then((d) => {
+          if (d.user) {
+            cachedUser = d.user;
+            setUser(d.user);
+          }
+        })
+        .catch(() => { });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (cachedCategories) return;
+    fetch("/api/categories")
       .then((r) => r.json())
-      .then((d) => {
-        if (d.user) setUser(d.user);
+      .then((data) => {
+        if (Array.isArray(data)) {
+          cachedCategories = data;
+          setCategories(data);
+        }
       })
-      .catch(() => {});
+      .catch(() => { });
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (catRef.current && !catRef.current.contains(e.target as Node)) {
+        setCatOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   async function handleLogout() {
@@ -47,9 +104,14 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-neutral-100">
-      <div className="bg-neutral-900 text-white text-center text-xs tracking-widest py-2 uppercase">
+      <motion.div
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="bg-neutral-900 text-white text-center text-xs tracking-widest py-2 uppercase"
+      >
         Complimentary Shipping on All Orders
-      </div>
+      </motion.div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center lg:hidden">
@@ -58,18 +120,94 @@ export function Header() {
             </button>
           </div>
 
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-serif tracking-wider text-neutral-900">
-              RATNAGIRI
-            </span>
+          {/* <Link href="/" >
+            <div className="flex flex-col items-center text-2xl font-serif tracking-wider text-neutral-900 hover:text-gold transition-colors duration-200">
+              RATNA TREASURE
+              <span className='text-lg'>HANDICRAFT</span>
+            </div>
+
+          </Link> */}
+          <Link href="/" className="group">
+            <div className="flex items-center gap-4">
+              <img
+                src="/logo.png"
+                alt="Ratna Treasure Handicraft"
+                className="h-auto w-50"
+              />
+
+
+            </div>
           </Link>
 
           <div className="hidden lg:flex items-center space-x-6">
-            {NAV_LINKS.map((link) => (
+            <Link
+              href="/jewelry"
+              className="text-xs tracking-widest uppercase text-neutral-700 hover:text-gold transition-colors duration-200"
+            >
+              Statues
+            </Link>
+            <div ref={catRef} className="relative">
+              <button
+                onMouseEnter={() => setCatOpen(true)}
+                onClick={() => setCatOpen(!catOpen)}
+                className="flex items-center gap-1 text-xs tracking-widest uppercase text-neutral-700 hover:text-gold transition-colors duration-200"
+              >
+                Categories
+                <motion.span
+                  animate={{ rotate: catOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown className="h-3 w-3" />
+                </motion.span>
+              </button>
+              <AnimatePresence>
+                {catOpen && (
+                  <motion.div
+                    variants={dropdownVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    onMouseEnter={() => setCatOpen(true)}
+                    onMouseLeave={() => setCatOpen(false)}
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 bg-white border border-neutral-200 rounded-sm shadow-xl z-50 overflow-hidden origin-top"
+                  >
+                    <div className="py-2">
+                      {categories.length === 0 ? (
+                        <div className="px-4 py-2.5 text-sm text-neutral-400">Loading...</div>
+                      ) : (
+                        categories.map((cat, i) => (
+                          <motion.div
+                            key={cat.id}
+                            variants={staggerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            custom={i}
+                          >
+                            <Link
+                              href={`/jewelry?category=${cat.slug}`}
+                              onClick={() => setCatOpen(false)}
+                              className="flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-gold transition-colors duration-150"
+                            >
+                              <span className="w-5 h-5 rounded-full bg-[#F8F5F0] flex items-center justify-center text-xs">
+                                ✦
+                              </span>
+                              <span className="tracking-wide">{cat.title}</span>
+                            </Link>
+                          </motion.div>
+                        ))
+                      )}
+                    </div>
+                    <div className="h-[2px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {TOP_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs tracking-widest uppercase text-neutral-700 hover:text-[#C9A84C] transition-colors duration-200"
+                className="text-xs tracking-widest uppercase text-neutral-700 hover:text-gold transition-colors duration-200"
               >
                 {link.label}
               </Link>
@@ -77,12 +215,12 @@ export function Header() {
           </div>
 
           <div className="flex items-center space-x-3">
-            <button onClick={() => setSearchOpen(!searchOpen)} className="p-2 hover:text-[#C9A84C] transition-colors">
+            <button onClick={() => setSearchOpen(!searchOpen)} className="p-2 hover:text-gold transition-colors">
               <Search className="h-5 w-5" />
             </button>
 
             <div className="relative">
-              <button onClick={() => setShowUserMenu(!showUserMenu)} className="p-2 hover:text-[#C9A84C] transition-colors">
+              <button onClick={() => setShowUserMenu(!showUserMenu)} className="p-2 hover:text-gold transition-colors">
                 <User className="h-5 w-5" />
               </button>
               {showUserMenu && (
@@ -112,7 +250,7 @@ export function Header() {
               )}
             </div>
 
-            <Link href="/cart" className="relative p-2 hover:text-[#C9A84C] transition-colors">
+            <Link href="/cart" className="relative p-2 hover:text-gold transition-colors">
               <ShoppingBag className="h-5 w-5" />
               {itemCount > 0 && (
                 <motion.span
@@ -153,11 +291,40 @@ export function Header() {
             className="lg:hidden bg-white border-t border-neutral-100"
           >
             <div className="px-4 py-4 space-y-3">
-              {NAV_LINKS.map((link) => (
+              <Link
+                href="/jewelry"
+                className="block text-sm tracking-wide text-neutral-700 hover:text-gold"
+                onClick={() => setMobileOpen(false)}
+              >
+                All Jewelry
+              </Link>
+              <div className="pb-1">
+                <p className="text-[10px] tracking-widest uppercase text-neutral-400 mb-2 px-1">
+                  Statues
+                </p>
+                <div className="space-y-2 pl-2">
+                  {categories.length === 0 ? (
+                    <p className="text-sm text-neutral-400 pl-2">Loading...</p>
+                  ) : (
+                    categories.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        href={`/jewelry?category=${cat.slug}`}
+                        className="flex items-center gap-2 text-sm tracking-wide text-neutral-700 hover:text-gold"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        <span className="text-xs">✦</span>
+                        <span>{cat.title}</span>
+                      </Link>
+                    ))
+                  )}
+                </div>
+              </div>
+              {TOP_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-sm tracking-wide text-neutral-700 hover:text-[#C9A84C]"
+                  className="block text-sm tracking-wide text-neutral-700 hover:text-gold"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

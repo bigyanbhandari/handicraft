@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserFromRequest } from "@/lib/auth";
+import { invalidateCache } from "@/lib/cache";
 
 export async function GET() {
   try {
@@ -26,6 +27,7 @@ export async function POST(request: NextRequest) {
         seo: data.seo || null,
       },
     });
+    invalidateCache("collections");
     return NextResponse.json(collection, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create collection" }, { status: 500 });
@@ -48,6 +50,7 @@ export async function PUT(request: NextRequest) {
         seo: data.seo || null,
       },
     });
+    invalidateCache("collections");
     return NextResponse.json(collection);
   } catch (error) {
     return NextResponse.json({ error: "Failed to update collection" }, { status: 500 });
@@ -61,6 +64,7 @@ export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
     await prisma.collection.delete({ where: { id } });
+    invalidateCache("collections");
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete collection" }, { status: 500 });

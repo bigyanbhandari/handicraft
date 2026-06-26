@@ -11,9 +11,9 @@ const FOOTER_LINKS = {
     { label: "Gemstone Jewelry", href: "/jewelry?category=gemstone-jewelry" },
   ],
   about: [
+    { label: "About Us", href: "/about" },
     { label: "Our Story", href: "/stories" },
     { label: "Collections", href: "/collections" },
-    { label: "Craft Heritage", href: "/stories" },
     { label: "Contact Us", href: "/contact" },
   ],
   support: [
