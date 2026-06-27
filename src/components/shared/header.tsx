@@ -103,46 +103,37 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-neutral-100">
+    <header className="sticky top-0 z-50 bg-[#0a0a0a] border-b border-[rgba(201,168,76,0.12)] shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
       <motion.div
         initial={{ y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="bg-neutral-900 text-white text-center text-xs tracking-widest py-2 uppercase"
+        className="bg-[#141414] text-[#E8D5A3] text-center text-[11px] tracking-[0.2em] py-2.5 uppercase border-b border-[rgba(201,168,76,0.1)]"
       >
-        Complimentary Shipping on All Orders
+        ✦ Worldwide Shipping &nbsp;·&nbsp; 15+ Years of Trust &nbsp;·&nbsp; Authentic Himalayan Handicraft
       </motion.div>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <div className="flex items-center lg:hidden">
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2">
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 text-cream-dark hover:text-gold transition-colors">
               {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
 
-          {/* <Link href="/" >
-            <div className="flex flex-col items-center text-2xl font-serif tracking-wider text-neutral-900 hover:text-gold transition-colors duration-200">
-              RATNA TREASURE
-              <span className='text-lg'>HANDICRAFT</span>
-            </div>
-
-          </Link> */}
           <Link href="/" className="group">
             <div className="flex items-center gap-4">
               <img
                 src="/logo.png"
                 alt="Ratna Treasure Handicraft"
-                className="h-auto w-50"
+                className="h-auto w-44 invert brightness-0 sepia hue-rotate-[-10deg] saturate-[3]"
               />
-
-
             </div>
           </Link>
 
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-8">
             <Link
               href="/jewelry"
-              className="text-xs tracking-widest uppercase text-neutral-700 hover:text-gold transition-colors duration-200"
+              className="text-xs tracking-[0.2em] uppercase text-cream-dark hover:text-gold transition-colors duration-300"
             >
               Statues
             </Link>
@@ -150,7 +141,7 @@ export function Header() {
               <button
                 onMouseEnter={() => setCatOpen(true)}
                 onClick={() => setCatOpen(!catOpen)}
-                className="flex items-center gap-1 text-xs tracking-widest uppercase text-neutral-700 hover:text-gold transition-colors duration-200"
+                className="flex items-center gap-1.5 text-xs tracking-[0.2em] uppercase text-cream-dark hover:text-gold transition-colors duration-300"
               >
                 Categories
                 <motion.span
@@ -169,11 +160,11 @@ export function Header() {
                     exit="exit"
                     onMouseEnter={() => setCatOpen(true)}
                     onMouseLeave={() => setCatOpen(false)}
-                    className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 bg-white border border-neutral-200 rounded-sm shadow-xl z-50 overflow-hidden origin-top"
+                    className="absolute left-1/2 -translate-x-1/2 top-full mt-3 w-60 bg-[#141414] border border-[rgba(201,168,76,0.2)] rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.7)] z-50 overflow-hidden origin-top"
                   >
                     <div className="py-2">
                       {categories.length === 0 ? (
-                        <div className="px-4 py-2.5 text-sm text-neutral-400">Loading...</div>
+                        <div className="px-4 py-2.5 text-sm text-gold-muted">Loading...</div>
                       ) : (
                         categories.map((cat, i) => (
                           <motion.div
@@ -186,9 +177,9 @@ export function Header() {
                             <Link
                               href={`/jewelry?category=${cat.slug}`}
                               onClick={() => setCatOpen(false)}
-                              className="flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-gold transition-colors duration-150"
+                              className="flex items-center gap-3 px-4 py-2.5 text-sm text-cream-dark hover:bg-[rgba(201,168,76,0.08)] hover:text-gold transition-colors duration-150"
                             >
-                              <span className="w-5 h-5 rounded-full bg-[#F8F5F0] flex items-center justify-center text-xs">
+                              <span className="w-5 h-5 rounded-full bg-[rgba(201,168,76,0.12)] flex items-center justify-center text-xs text-gold">
                                 ✦
                               </span>
                               <span className="tracking-wide">{cat.title}</span>
@@ -197,7 +188,7 @@ export function Header() {
                         ))
                       )}
                     </div>
-                    <div className="h-[2px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                    <div className="h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent" />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -207,14 +198,14 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs tracking-widest uppercase text-neutral-700 hover:text-gold transition-colors duration-200"
+                className="text-xs tracking-[0.2em] uppercase text-cream-dark hover:text-gold transition-colors duration-300"
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 text-cream-dark">
             <button onClick={() => setSearchOpen(!searchOpen)} className="p-2 hover:text-gold transition-colors">
               <Search className="h-5 w-5" />
             </button>
@@ -224,24 +215,24 @@ export function Header() {
                 <User className="h-5 w-5" />
               </button>
               {showUserMenu && (
-                <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-neutral-200 rounded-sm shadow-lg py-2 z-50">
+                <div className="absolute right-0 top-full mt-2 w-52 bg-[#141414] border border-[rgba(201,168,76,0.15)] rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.6)] py-2 z-50">
                   {user ? (
                     <>
-                      <p className="px-4 py-1.5 text-xs text-neutral-500 truncate">{user.email}</p>
-                      <hr className="my-1 border-neutral-100" />
-                      <Link href="/orders" className="block px-4 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50" onClick={() => setShowUserMenu(false)}>
+                      <p className="px-4 py-1.5 text-xs text-gold-muted truncate">{user.email}</p>
+                      <hr className="my-1 border-[rgba(201,168,76,0.1)]" />
+                      <Link href="/orders" className="block px-4 py-1.5 text-sm text-cream-dark hover:bg-[rgba(201,168,76,0.08)] hover:text-gold" onClick={() => setShowUserMenu(false)}>
                         My Orders
                       </Link>
-                      <button onClick={handleLogout} className="w-full text-left px-4 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <button onClick={handleLogout} className="w-full text-left px-4 py-1.5 text-sm text-cream-dark hover:bg-[rgba(201,168,76,0.08)] hover:text-gold">
                         Sign Out
                       </button>
                     </>
                   ) : (
                     <>
-                      <Link href="/login" className="block px-4 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50" onClick={() => setShowUserMenu(false)}>
+                      <Link href="/login" className="block px-4 py-1.5 text-sm text-cream-dark hover:bg-[rgba(201,168,76,0.08)] hover:text-gold" onClick={() => setShowUserMenu(false)}>
                         Sign In
                       </Link>
-                      <Link href="/register" className="block px-4 py-1.5 text-sm text-neutral-700 hover:bg-neutral-50" onClick={() => setShowUserMenu(false)}>
+                      <Link href="/register" className="block px-4 py-1.5 text-sm text-cream-dark hover:bg-[rgba(201,168,76,0.08)] hover:text-gold" onClick={() => setShowUserMenu(false)}>
                         Create Account
                       </Link>
                     </>
@@ -256,7 +247,7 @@ export function Header() {
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-[#C9A84C] text-white text-[10px] flex items-center justify-center font-medium"
+                  className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-gold text-[#0a0a0a] text-[10px] flex items-center justify-center font-semibold"
                 >
                   {itemCount}
                 </motion.span>
@@ -274,8 +265,8 @@ export function Header() {
               className="overflow-hidden"
             >
               <form action="/jewelry" method="GET" className="py-4 flex gap-2">
-                <Input name="q" placeholder="Search jewelry..." className="flex-1" autoFocus />
-                <Button type="submit">Search</Button>
+                <Input name="q" placeholder="Search jewelry..." className="flex-1 bg-[#141414] border-[rgba(201,168,76,0.2)] text-cream placeholder:text-gold-muted focus:border-gold focus:ring-gold" autoFocus />
+                <Button type="submit" className="bg-gold hover:bg-gold-dark text-[#0a0a0a] font-medium tracking-wider uppercase text-xs">Search</Button>
               </form>
             </motion.div>
           )}
@@ -288,32 +279,32 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t border-neutral-100"
+            className="lg:hidden bg-[#0a0a0a] border-t border-[rgba(201,168,76,0.12)]"
           >
-            <div className="px-4 py-4 space-y-3">
+            <div className="px-4 py-6 space-y-4">
               <Link
                 href="/jewelry"
-                className="block text-sm tracking-wide text-neutral-700 hover:text-gold"
+                className="block text-sm tracking-wide text-cream-dark hover:text-gold"
                 onClick={() => setMobileOpen(false)}
               >
                 All Jewelry
               </Link>
               <div className="pb-1">
-                <p className="text-[10px] tracking-widest uppercase text-neutral-400 mb-2 px-1">
+                <p className="text-[10px] tracking-widest uppercase text-gold-muted mb-2 px-1">
                   Statues
                 </p>
                 <div className="space-y-2 pl-2">
                   {categories.length === 0 ? (
-                    <p className="text-sm text-neutral-400 pl-2">Loading...</p>
+                    <p className="text-sm text-gold-muted pl-2">Loading...</p>
                   ) : (
                     categories.map((cat) => (
                       <Link
                         key={cat.id}
                         href={`/jewelry?category=${cat.slug}`}
-                        className="flex items-center gap-2 text-sm tracking-wide text-neutral-700 hover:text-gold"
+                        className="flex items-center gap-2 text-sm tracking-wide text-cream-dark hover:text-gold"
                         onClick={() => setMobileOpen(false)}
                       >
-                        <span className="text-xs">✦</span>
+                        <span className="text-xs text-gold">✦</span>
                         <span>{cat.title}</span>
                       </Link>
                     ))
@@ -324,7 +315,7 @@ export function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block text-sm tracking-wide text-neutral-700 hover:text-gold"
+                  className="block text-sm tracking-wide text-cream-dark hover:text-gold"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

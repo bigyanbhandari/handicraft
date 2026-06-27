@@ -24,7 +24,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       transition={{ duration: 0.5, delay: index * 0.05 }}
     >
       <Link href={`/jewelry/${product.slug}`} className="group block">
-        <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100 rounded-sm mb-3">
+        <div className="relative aspect-[3/4] overflow-hidden bg-[#141414] rounded-sm mb-4 border border-[rgba(201,168,76,0.08)] group-hover:border-[rgba(201,168,76,0.35)] transition-all duration-500 luxe-card">
           {product.images?.[0]?.url ? (
             <Image
               src={product.images[0].url}
@@ -34,7 +34,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-neutral-400">
+            <div className="w-full h-full flex items-center justify-center text-gold-muted">
               No Image
             </div>
           )}
@@ -48,26 +48,26 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               Limited
             </Badge>
           )}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0a0a]/90 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           {product.category && (
-            <p className="text-[10px] tracking-widest uppercase text-[#C9A84C] font-medium">
+            <p className="text-[10px] tracking-widest uppercase text-gold font-medium">
               {product.category.title}
             </p>
           )}
-          <h3 className="text-sm font-medium text-neutral-900 group-hover:text-[#C9A84C] transition-colors line-clamp-2">
+          <h3 className="text-sm font-medium text-cream group-hover:text-gold transition-colors line-clamp-2">
             {product.title}
           </h3>
           {product.craftType && (
-            <p className="text-[11px] text-neutral-500">{product.craftType}</p>
+            <p className="text-[11px] text-gold-muted">{product.craftType}</p>
           )}
-          <div className="flex items-center gap-2">
-            <span className="text-base font-semibold text-neutral-900">
+          <div className="flex items-center gap-2 pt-0.5">
+            <span className="text-base font-semibold text-cream">
               {formatPrice(hasDiscount ? product.discountPrice! : product.price)}
             </span>
             {hasDiscount && (
-              <span className="text-sm text-neutral-400 line-through">
+              <span className="text-sm text-gold-muted line-through">
                 {formatPrice(product.price)}
               </span>
             )}

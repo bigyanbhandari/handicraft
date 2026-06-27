@@ -102,25 +102,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-6 py-12">
-          <nav className="text-sm text-neutral-500 mb-8 flex items-center gap-2">
-            <Link href="/" className="hover:text-[#C9A84C] transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/jewelry" className="hover:text-[#C9A84C] transition-colors">Jewelry</Link>
+          <nav className="text-sm text-gold-muted mb-8 flex items-center gap-2">
+            <Link href="/" className="hover:text-gold transition-colors">Home</Link>
+            <span className="text-gold/30">/</span>
+            <Link href="/jewelry" className="hover:text-gold transition-colors">Jewelry</Link>
             {product.category && (
               <>
-                <span>/</span>
+                <span className="text-gold/30">/</span>
                 <Link
                   href={`/jewelry?category=${product.category.slug}`}
-                  className="hover:text-[#C9A84C] transition-colors"
+                  className="hover:text-gold transition-colors"
                 >
                   {product.category.title}
                 </Link>
               </>
             )}
-            <span>/</span>
-            <span className="text-neutral-900">{product.title}</span>
+            <span className="text-gold/30">/</span>
+            <span className="text-cream">{product.title}</span>
           </nav>
 
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
@@ -129,23 +129,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <div className="flex flex-col">
               <div className="mb-6">
                 {product.category && (
-                  <p className="text-[#C9A84C] tracking-[0.2em] uppercase text-xs font-medium mb-2">
+                  <p className="text-gold tracking-[0.25em] uppercase text-xs font-medium mb-2">
                     {product.category.title}
                   </p>
                 )}
-                <h1 className="text-3xl md:text-4xl font-serif text-neutral-900 mb-4">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif text-cream mb-4">
                   {product.title}
                 </h1>
                 {product.craftType && (
-                  <p className="text-sm text-neutral-500 mb-4">{product.craftType}</p>
+                  <p className="text-sm text-gold-muted mb-4">{product.craftType}</p>
                 )}
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl md:text-3xl font-semibold text-neutral-900">
+                  <span className="text-2xl md:text-3xl font-semibold text-cream">
                     {formatPrice(currentPrice)}
                   </span>
                   {hasDiscount && (
                     <>
-                      <span className="text-lg text-neutral-400 line-through">
+                      <span className="text-lg text-gold-muted line-through">
                         {formatPrice(product.price)}
                       </span>
                       <Badge variant="sale">{discountPercent}% OFF</Badge>
@@ -177,12 +177,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
               {product.occasion && product.occasion.length > 0 && (
                 <div className="mb-6">
-                  <p className="text-xs tracking-[0.2em] uppercase font-medium text-neutral-900 mb-2">
+                  <p className="text-xs tracking-[0.2em] uppercase font-medium text-cream mb-2">
                     Perfect For
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {product.occasion.map((occ: string) => (
-                      <span key={occ} className="text-xs bg-[#F8F5F0] text-neutral-700 px-3 py-1 rounded-sm">
+                      <span key={occ} className="text-xs bg-[#141414] border border-[rgba(201,168,76,0.15)] text-cream-dark px-3 py-1 rounded-sm">
                         {occ}
                       </span>
                     ))}
@@ -191,7 +191,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               )}
 
               <Tabs defaultValue="description" className="mt-2">
-                <TabsList>
+                <TabsList className="bg-[#141414] border border-[rgba(201,168,76,0.12)]">
                   <TabsTrigger value="description">Description</TabsTrigger>
                   <TabsTrigger value="craft">Craft Story</TabsTrigger>
                   <TabsTrigger value="materials">Materials & Origin</TabsTrigger>
@@ -199,7 +199,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   <TabsTrigger value="reviews">Reviews</TabsTrigger>
                 </TabsList>
                 <TabsContent value="description">
-                  <div className="prose prose-neutral max-w-none text-sm leading-relaxed text-neutral-700">
+                  <div className="prose prose-invert max-w-none text-sm leading-relaxed text-cream-dark/80">
                     {product.description ? (
                       <p>{product.description}</p>
                     ) : (
@@ -208,31 +208,31 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   </div>
                 </TabsContent>
                 <TabsContent value="craft">
-                  <div className="text-sm leading-relaxed text-neutral-700 space-y-4">
+                  <div className="text-sm leading-relaxed text-cream-dark/80 space-y-4">
                     {product.craftType ? (
                       <>
                         <p>
-                          This piece is crafted using the <strong>{product.craftType}</strong> technique — one of India&apos;s great jewelry traditions.
-                          Passed down through generations of artisans, this craft transforms precious metals and stones into wearable art.
+                          This piece is crafted using the <strong className="text-cream">{product.craftType}</strong> technique — one of the Himalaya&apos;s great artisan traditions.
+                          Passed down through generations of artisans, this craft transforms precious metals and sacred forms into devotional art.
                         </p>
                         <p>
                           At Ratnagiri, we work directly with master craftspeople who have dedicated their lives to preserving these techniques.
-                          Each piece undergoes meticulous hand-finishing, ensuring that the legacy of Indian craftsmanship lives on in every detail.
+                          Each piece undergoes meticulous hand-finishing, ensuring that the legacy of Himalayan craftsmanship lives on in every detail.
                         </p>
                       </>
                     ) : (
                       <p>
-                        At Ratnagiri, every piece is handcrafted by master artisans who carry forward centuries of Indian jewelry tradition.
+                        At Ratnagiri, every piece is handcrafted by master artisans who carry forward centuries of Himalayan tradition.
                         From the initial sketch to the final polish, each step is performed with the care and precision that our heritage demands.
                       </p>
                     )}
                   </div>
                 </TabsContent>
                 <TabsContent value="materials">
-                  <div className="text-sm leading-relaxed text-neutral-700 space-y-4">
+                  <div className="text-sm leading-relaxed text-cream-dark/80 space-y-4">
                     {product.materials && product.materials.length > 0 && (
                       <div>
-                        <p className="font-medium text-neutral-900 mb-2">Materials</p>
+                        <p className="font-medium text-cream mb-2">Materials</p>
                         <ul className="list-disc list-inside space-y-1">
                           {product.materials.map((material: string) => (
                             <li key={material}>{material}</li>
@@ -242,7 +242,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     )}
                     {product.origin && (
                       <div>
-                        <p className="font-medium text-neutral-900 mb-2">Origin</p>
+                        <p className="font-medium text-cream mb-2">Origin</p>
                         <p>{product.origin}</p>
                       </div>
                     )}
@@ -252,27 +252,27 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   </div>
                 </TabsContent>
                 <TabsContent value="shipping">
-                  <div className="text-sm leading-relaxed text-neutral-700 space-y-3">
-                    <p className="font-medium text-neutral-900">Shipping & Delivery</p>
+                  <div className="text-sm leading-relaxed text-cream-dark/80 space-y-3">
+                    <p className="font-medium text-cream">Shipping & Delivery</p>
                     <ul className="space-y-2">
                       <li className="flex justify-between">
                         <span>Standard Delivery</span>
-                        <span className="text-neutral-500">5–7 business days</span>
+                        <span className="text-gold-muted">5–7 business days</span>
                       </li>
                       <li className="flex justify-between">
                         <span>Express Delivery</span>
-                        <span className="text-neutral-500">2–3 business days</span>
+                        <span className="text-gold-muted">2–3 business days</span>
                       </li>
                     </ul>
-                    <p className="text-xs text-neutral-500 mt-4">
+                    <p className="text-xs text-gold-muted mt-4">
                       All jewelry is carefully packaged in our signature Ratnagiri box.
                       Free insured shipping on orders above ₹25,000.
                     </p>
                   </div>
                 </TabsContent>
                 <TabsContent value="reviews">
-                  <div className="text-sm leading-relaxed text-neutral-700">
-                    <p className="text-neutral-500">Customer reviews coming soon.</p>
+                  <div className="text-sm leading-relaxed text-cream-dark/80">
+                    <p className="text-gold-muted">Customer reviews coming soon.</p>
                   </div>
                 </TabsContent>
               </Tabs>
@@ -280,11 +280,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
 
           {relatedProducts.length > 0 && (
-            <section className="mt-20 pt-16 border-t border-neutral-100">
-              <p className="text-[#C9A84C] tracking-[0.2em] uppercase text-xs font-medium mb-3">
+            <section className="mt-20 pt-16 border-t border-[rgba(201,168,76,0.1)]">
+              <p className="text-gold tracking-[0.25em] uppercase text-xs font-medium mb-3">
                 You May Also Love
               </p>
-              <h2 className="text-2xl md:text-3xl font-serif text-neutral-900 mb-8">
+              <h2 className="text-2xl md:text-3xl font-serif text-cream mb-8">
                 Related Pieces
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">

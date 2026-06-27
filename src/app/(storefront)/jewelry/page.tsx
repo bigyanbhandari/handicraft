@@ -141,15 +141,15 @@ export default function JewelryPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="animate-pulse space-y-8">
-            <div className="h-4 w-32 bg-neutral-200 rounded" />
-            <div className="h-10 w-96 bg-neutral-200 rounded" />
-            <div className="h-4 w-[600px] bg-neutral-200 rounded" />
+            <div className="h-4 w-32 bg-[#1a1a1a] rounded" />
+            <div className="h-10 w-96 bg-[#1a1a1a] rounded" />
+            <div className="h-4 w-[600px] bg-[#1a1a1a] rounded" />
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-12">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="aspect-[3/4] bg-neutral-100 rounded-sm" />
+                <div key={i} className="aspect-[3/4] bg-[#141414] rounded-sm border border-[rgba(201,168,76,0.08)]" />
               ))}
             </div>
           </div>
@@ -159,20 +159,20 @@ export default function JewelryPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <FadeIn>
           <div className="mb-12">
-            <p className="text-[#C9A84C] tracking-[0.2em] uppercase text-xs font-medium mb-3">
+            <p className="text-gold tracking-[0.25em] uppercase text-xs font-medium mb-3">
               Our Collection
             </p>
-            <h1 className="text-3xl md:text-4xl font-serif text-neutral-900 mb-2">
-              Handcrafted Jewelry
+            <h1 className="text-3xl md:text-5xl font-serif text-cream mb-2">
+              Handcrafted Treasures
             </h1>
-            <p className="text-neutral-600 max-w-2xl">
+            <p className="text-cream-dark/70 max-w-2xl">
               {activeCategory
-                ? `Explore our ${activeCategory.title} collection — each piece a testament to India's living jewelry traditions.`
-                : "Each piece in our collection embodies the rich tradition of Indian jewelry craftsmanship, from the temples of the South to the courts of the Mughals."}
+                ? `Explore our ${activeCategory.title} collection — each piece a testament to Himalayan living traditions.`
+                : "Each piece in our collection embodies the sacred artistry of Himalayan craftsmanship — from statues of Nepal to ritual objects of Tibet."}
             </p>
           </div>
         </FadeIn>
@@ -181,48 +181,48 @@ export default function JewelryPage() {
           <aside className="w-full lg:w-64 shrink-0">
             <div className="lg:sticky lg:top-24 space-y-8">
               <FadeIn direction="left" delay={0.1}>
-                <div>
-                  <h3 className="text-xs tracking-[0.2em] uppercase font-medium text-neutral-900 mb-4">
+                <div className="bg-[#141414] border border-[rgba(201,168,76,0.1)] rounded-sm p-5">
+                  <h3 className="text-xs tracking-[0.2em] uppercase font-medium text-cream mb-4">
                     Categories
                   </h3>
                   <div className="space-y-1">
                     <Link
                       href={buildQuery({ category: undefined, price: priceRange, page: "1" })}
-                      className={`block text-sm py-1.5 transition-colors ${!categorySlug ? "text-[#C9A84C] font-medium" : "text-neutral-600 hover:text-neutral-900"}`}
+                      className={`block text-sm py-1.5 transition-colors ${!categorySlug ? "text-gold font-medium" : "text-cream-dark/70 hover:text-cream"}`}
                     >
                       <span className="inline-flex items-center gap-2">
                         <span
                           className={`w-3.5 h-3.5 rounded-sm border flex items-center justify-center transition-colors ${
                             !categorySlug
-                              ? "bg-[#C9A84C] border-[#C9A84C]"
-                              : "border-neutral-300"
+                              ? "bg-gold border-gold"
+                              : "border-[rgba(201,168,76,0.3)]"
                           }`}
                         >
                           {!categorySlug && (
-                            <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 12 12">
+                            <svg className="w-2 h-2 text-[#0a0a0a]" fill="none" viewBox="0 0 12 12">
                               <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                           )}
                         </span>
-                        All Jewelry
+                        All Treasures
                       </span>
                     </Link>
                     {categories.map((category) => (
                       <Link
                         key={category.id}
                         href={buildQuery({ category: category.slug, page: "1" })}
-                        className={`block text-sm py-1.5 transition-colors ${categorySlug === category.slug ? "text-[#C9A84C] font-medium" : "text-neutral-600 hover:text-neutral-900"}`}
+                        className={`block text-sm py-1.5 transition-colors ${categorySlug === category.slug ? "text-gold font-medium" : "text-cream-dark/70 hover:text-cream"}`}
                       >
                         <span className="inline-flex items-center gap-2">
                           <span
                             className={`w-3.5 h-3.5 rounded-sm border flex items-center justify-center transition-colors ${
                               categorySlug === category.slug
-                                ? "bg-[#C9A84C] border-[#C9A84C]"
-                                : "border-neutral-300"
+                                ? "bg-gold border-gold"
+                                : "border-[rgba(201,168,76,0.3)]"
                             }`}
                           >
                             {categorySlug === category.slug && (
-                              <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 12 12">
+                              <svg className="w-2 h-2 text-[#0a0a0a]" fill="none" viewBox="0 0 12 12">
                                 <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
                             )}
@@ -236,17 +236,17 @@ export default function JewelryPage() {
               </FadeIn>
 
               <FadeIn direction="left" delay={0.2}>
-                <div>
-                  <h3 className="text-xs tracking-[0.2em] uppercase font-medium text-neutral-900 mb-4">
+                <div className="bg-[#141414] border border-[rgba(201,168,76,0.1)] rounded-sm p-5">
+                  <h3 className="text-xs tracking-[0.2em] uppercase font-medium text-cream mb-4">
                     Price Range
                   </h3>
                   <div className="px-1">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-medium text-neutral-900">
+                      <span className="text-sm font-medium text-cream">
                         ₹{priceMinInput.toLocaleString("en-IN")}
                       </span>
-                      <span className="text-xs text-neutral-400">—</span>
-                      <span className="text-sm font-medium text-neutral-900">
+                      <span className="text-xs text-gold-muted">—</span>
+                      <span className="text-sm font-medium text-cream">
                         ₹{priceMaxInput.toLocaleString("en-IN")}
                       </span>
                     </div>
@@ -258,7 +258,7 @@ export default function JewelryPage() {
                         step={1000}
                         value={priceMinInput}
                         onChange={(e) => handlePriceChange("min", Number(e.target.value))}
-                        className="absolute inset-0 w-full h-full appearance-none bg-transparent pointer-events-none z-20 [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#C9A84C] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#C9A84C] [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white"
+                        className="absolute inset-0 w-full h-full appearance-none bg-transparent pointer-events-none z-20 [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gold [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0a0a0a] [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gold [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#0a0a0a]"
                       />
                       <input
                         type="range"
@@ -267,11 +267,11 @@ export default function JewelryPage() {
                         step={1000}
                         value={priceMaxInput}
                         onChange={(e) => handlePriceChange("max", Number(e.target.value))}
-                        className="absolute inset-0 w-full h-full appearance-none bg-transparent pointer-events-none z-20 [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#C9A84C] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#C9A84C] [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white"
+                        className="absolute inset-0 w-full h-full appearance-none bg-transparent pointer-events-none z-20 [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gold [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0a0a0a] [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-gold [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-md [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#0a0a0a]"
                       />
-                      <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-1 bg-neutral-200 rounded-full" />
+                      <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-1 bg-[rgba(201,168,76,0.12)] rounded-full" />
                       <div
-                        className="absolute top-1/2 -translate-y-1/2 h-1 bg-[#C9A84C] rounded-full"
+                        className="absolute top-1/2 -translate-y-1/2 h-1 bg-gold rounded-full"
                         style={{
                           left: `${((priceMinInput - minPrice) / (maxPrice - minPrice)) * 100}%`,
                           right: `${100 - ((priceMaxInput - minPrice) / (maxPrice - minPrice)) * 100}%`,
@@ -280,7 +280,7 @@ export default function JewelryPage() {
                     </div>
                     <button
                       onClick={applyPriceFilter}
-                      className="w-full text-xs tracking-wider uppercase bg-[#C9A84C] text-white py-2 rounded-sm hover:bg-[#b8943a] transition-colors font-medium"
+                      className="w-full text-xs tracking-wider uppercase bg-gold text-[#0a0a0a] py-2 rounded-sm hover:bg-gold-dark transition-colors font-medium"
                     >
                       Apply Price
                     </button>
@@ -292,7 +292,7 @@ export default function JewelryPage() {
                 <FadeIn direction="left" delay={0.3}>
                   <Link
                     href="/jewelry"
-                    className="inline-block text-xs text-neutral-500 underline underline-offset-4 hover:text-[#C9A84C] transition-colors"
+                    className="inline-block text-xs text-gold-muted underline underline-offset-4 hover:text-gold transition-colors"
                   >
                     Clear all filters
                   </Link>
@@ -304,11 +304,11 @@ export default function JewelryPage() {
           <div className="flex-1">
             <FadeIn delay={0.15}>
               <div className="flex items-center justify-between mb-8">
-                <p className="text-sm text-neutral-500">
+                <p className="text-sm text-gold-muted">
                   {total} {total === 1 ? "piece" : "pieces"}
                 </p>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-neutral-500 hidden sm:inline">Sort by</span>
+                  <span className="text-xs text-gold-muted hidden sm:inline">Sort by</span>
                   <div className="flex gap-1">
                     {[
                       { label: "Newest", value: "newest" },
@@ -318,7 +318,7 @@ export default function JewelryPage() {
                       <Link
                         key={option.value}
                         href={buildQuery({ sort: option.value })}
-                        className={`text-xs px-3 py-1.5 rounded-sm transition-colors ${sort === option.value ? "bg-[#C9A84C] text-white" : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"}`}
+                        className={`text-xs px-3 py-1.5 rounded-sm transition-colors ${sort === option.value ? "bg-gold text-[#0a0a0a] font-medium" : "bg-[#141414] text-cream-dark hover:text-cream border border-[rgba(201,168,76,0.1)]"}`}
                       >
                         {option.label}
                       </Link>
@@ -345,7 +345,7 @@ export default function JewelryPage() {
                     {page > 1 && (
                       <Link
                         href={buildQuery({ page: String(page - 1) })}
-                        className="px-4 py-2 text-sm border border-neutral-200 rounded-sm hover:bg-neutral-50 transition-colors"
+                        className="px-4 py-2 text-sm border border-[rgba(201,168,76,0.2)] text-cream-dark rounded-sm hover:bg-[rgba(201,168,76,0.08)] hover:text-gold transition-colors"
                       >
                         Previous
                       </Link>
@@ -356,8 +356,8 @@ export default function JewelryPage() {
                         href={buildQuery({ page: String(p) })}
                         className={`px-4 py-2 text-sm rounded-sm transition-colors ${
                           p === page
-                            ? "bg-[#C9A84C] text-white"
-                            : "border border-neutral-200 hover:bg-neutral-50"
+                            ? "bg-gold text-[#0a0a0a] font-medium"
+                            : "border border-[rgba(201,168,76,0.2)] text-cream-dark hover:bg-[rgba(201,168,76,0.08)] hover:text-gold"
                         }`}
                       >
                         {p}
@@ -366,7 +366,7 @@ export default function JewelryPage() {
                     {page < totalPages && (
                       <Link
                         href={buildQuery({ page: String(page + 1) })}
-                        className="px-4 py-2 text-sm border border-neutral-200 rounded-sm hover:bg-neutral-50 transition-colors"
+                        className="px-4 py-2 text-sm border border-[rgba(201,168,76,0.2)] text-cream-dark rounded-sm hover:bg-[rgba(201,168,76,0.08)] hover:text-gold transition-colors"
                       >
                         Next
                       </Link>
@@ -377,10 +377,10 @@ export default function JewelryPage() {
             ) : (
               <FadeIn>
                 <div className="text-center py-20">
-                  <div className="text-6xl mb-4">✦</div>
-                  <p className="text-neutral-500 mb-2">No pieces found matching your criteria.</p>
-                  <Link href="/jewelry" className="text-[#C9A84C] hover:underline text-sm font-medium">
-                    View All Jewelry
+                  <div className="text-6xl mb-4 text-gold/30">✦</div>
+                  <p className="text-cream-dark/70 mb-2">No pieces found matching your criteria.</p>
+                  <Link href="/jewelry" className="text-gold hover:text-gold-light text-sm font-medium transition-colors">
+                    View All Treasures
                   </Link>
                 </div>
               </FadeIn>

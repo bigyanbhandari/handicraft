@@ -58,30 +58,32 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   const products = collection.products || [];
 
   return (
-    <main className="min-h-screen bg-white">
-      <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden bg-[#1a1a1a]">
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-[1]" />
+    <main className="min-h-screen bg-[#0a0a0a]">
+      <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden bg-[#0a0a0a]">
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0a0a0a]/95 via-[#0a0a0a]/50 to-transparent z-[1]" />
         {collection.image ? (
           <Image
             src={collection.image}
             alt={collection.title}
             fill
-            className="object-contain"
+            className="object-cover"
             priority
             sizes="100vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-[#E8DDD0]" />
+          <div className="absolute inset-0 bg-[#141414] flex items-center justify-center">
+            <span className="text-gold/20 text-[12rem] font-serif select-none">✦</span>
+          </div>
         )}
         <div className="relative z-10 max-w-7xl mx-auto w-full px-6 pb-12">
-          <p className="text-[#C9A84C] tracking-[0.3em] uppercase text-xs font-medium mb-3">
+          <p className="text-gold tracking-[0.3em] uppercase text-xs font-medium mb-3">
             Collection
           </p>
-          <h1 className="text-4xl md:text-6xl font-serif text-white mb-4">
+          <h1 className="text-4xl md:text-6xl font-serif text-cream mb-4">
             {collection.title}
           </h1>
           {collection.description && (
-            <p className="text-white/80 max-w-2xl text-lg font-light leading-relaxed">
+            <p className="text-cream-dark/80 max-w-2xl text-lg font-light leading-relaxed">
               {collection.description}
             </p>
           )}
@@ -91,7 +93,7 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
       <section className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-10">
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-gold-muted">
               {products.length} {products.length === 1 ? "piece" : "pieces"}
             </p>
           </div>
@@ -104,9 +106,9 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-neutral-500 mb-4">This collection is being curated. Check back soon.</p>
-              <Link href="/jewelry" className="text-[#C9A84C] hover:underline text-sm font-medium">
-                Browse All Jewelry
+              <p className="text-cream-dark/70 mb-4">This collection is being curated. Check back soon.</p>
+              <Link href="/jewelry" className="text-gold hover:text-gold-light text-sm font-medium transition-colors">
+                Browse All Treasures
               </Link>
             </div>
           )}

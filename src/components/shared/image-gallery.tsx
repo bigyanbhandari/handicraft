@@ -22,7 +22,7 @@ export function ImageGallery({ images, className }: ImageGalleryProps) {
 
   if (!images || images.length === 0) {
     return (
-      <div className="aspect-[3/4] bg-neutral-100 flex items-center justify-center text-neutral-400">
+      <div className="aspect-[3/4] bg-[#141414] border border-[rgba(201,168,76,0.1)] rounded-sm flex items-center justify-center text-gold-muted">
         No images available
       </div>
     );
@@ -41,7 +41,7 @@ export function ImageGallery({ images, className }: ImageGalleryProps) {
   return (
     <div className={cn("flex flex-col gap-3", className)}>
       <div
-        className="relative aspect-[3/4] overflow-hidden bg-neutral-100 rounded-sm cursor-zoom-in"
+        className="relative aspect-[3/4] overflow-hidden bg-[#141414] border border-[rgba(201,168,76,0.1)] rounded-sm cursor-zoom-in luxe-card"
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsZoomed(true)}
         onMouseLeave={() => setIsZoomed(false)}
@@ -82,9 +82,9 @@ export function ImageGallery({ images, className }: ImageGalleryProps) {
               key={`${image.url}-${index}`}
               onClick={() => setSelectedIndex(index)}
               className={cn(
-                "relative flex-shrink-0 aspect-square w-16 h-16 overflow-hidden rounded-sm transition-all duration-200 border-2",
+                "relative flex-shrink-0 aspect-square w-16 h-16 overflow-hidden rounded-sm transition-all duration-200 border-2 bg-[#141414]",
                 index === selectedIndex
-                  ? "border-[#C9A84C] opacity-100"
+                  ? "border-gold opacity-100"
                   : "border-transparent opacity-60 hover:opacity-100"
               )}
             >

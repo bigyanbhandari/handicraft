@@ -183,24 +183,24 @@ export default function CheckoutPage() {
 
   if (loadingUser) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-12 h-12 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
+        <div className="w-12 h-12 border-2 border-gold border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (items.length === 0 && !isSubmitting) {
     return (
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-6 py-20">
           <div className="text-center max-w-md mx-auto">
-            <h1 className="text-3xl font-serif text-neutral-900 mb-4">
+            <h1 className="text-3xl font-serif text-cream mb-4">
               Nothing to Checkout
             </h1>
-            <p className="text-neutral-600 mb-8">
+            <p className="text-cream-dark/70 mb-8">
               Your cart is empty. Add some beautiful pieces before checking out.
             </p>
-            <Button asChild size="lg" className="bg-[#C9A84C] hover:bg-[#B8973A] text-white px-8">
+            <Button asChild size="lg" variant="default" className="px-8">
               <Link href="/jewelry">Explore Collection</Link>
             </Button>
           </div>
@@ -210,13 +210,13 @@ export default function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F8F5F0]">
+    <main className="min-h-screen bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-10">
-          <p className="text-[#C9A84C] tracking-[0.2em] uppercase text-xs font-medium mb-3">
+          <p className="text-gold tracking-[0.2em] uppercase text-xs font-medium mb-3">
             Checkout
           </p>
-          <h1 className="text-3xl font-serif text-neutral-900">
+          <h1 className="text-3xl font-serif text-cream">
             Complete Your Order
           </h1>
         </div>
@@ -224,13 +224,13 @@ export default function CheckoutPage() {
         <form onSubmit={handleSubmit}>
           <div className="grid lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2 space-y-8">
-              <section className="bg-white rounded-sm p-6 md:p-8">
-                <h2 className="text-lg font-serif text-neutral-900 mb-6">
+              <section className="bg-[#141414] rounded-sm p-6 md:p-8 border border-[rgba(201,168,76,0.1)]">
+                <h2 className="text-lg font-serif text-cream mb-6">
                   Shipping Information
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       First Name *
                     </label>
                     <Input
@@ -240,7 +240,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       Last Name *
                     </label>
                     <Input
@@ -250,7 +250,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       Email *
                     </label>
                     <Input
@@ -261,7 +261,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       Phone *
                     </label>
                     <Input
@@ -272,7 +272,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       Address Line 1 *
                     </label>
                     <Input
@@ -282,7 +282,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div className="md:col-span-2">
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       Address Line 2
                     </label>
                     <Input
@@ -291,7 +291,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       City *
                     </label>
                     <Input
@@ -301,7 +301,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       State *
                     </label>
                     <Input
@@ -311,7 +311,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs tracking-wider uppercase text-neutral-500 mb-1.5">
+                    <label className="block text-xs tracking-wider uppercase text-gold-muted mb-1.5">
                       PIN Code *
                     </label>
                     <Input
@@ -325,15 +325,15 @@ export default function CheckoutPage() {
             </div>
 
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-sm p-6 lg:sticky lg:top-24">
-                <h2 className="text-lg font-serif text-neutral-900 mb-6">
+              <div className="bg-[#141414] rounded-sm p-6 lg:sticky lg:top-24 border border-[rgba(201,168,76,0.1)]">
+                <h2 className="text-lg font-serif text-cream mb-6">
                   Order Summary
                 </h2>
 
                 <div className="space-y-4 mb-6">
                   {items.map((item) => (
                     <div key={item.id} className="flex gap-3 items-start">
-                      <div className="w-14 h-16 rounded-sm overflow-hidden bg-[#F8F5F0] shrink-0 relative">
+                      <div className="w-14 h-16 rounded-sm overflow-hidden bg-[#0a0a0a] shrink-0 relative border border-[rgba(201,168,76,0.1)]">
                         {item.image ? (
                           <Image
                             src={item.image}
@@ -343,53 +343,53 @@ export default function CheckoutPage() {
                             sizes="56px"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-neutral-300 text-xs">
+                          <div className="w-full h-full flex items-center justify-center text-cream-dark/40 text-xs">
                             No Image
                           </div>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-neutral-900 line-clamp-2">
+                        <p className="text-xs font-medium text-cream line-clamp-2">
                           {item.title}
                         </p>
-                        <p className="text-xs text-neutral-500">
+                        <p className="text-xs text-gold-muted">
                           Qty: {item.quantity}
                         </p>
                       </div>
-                      <span className="text-xs font-semibold text-neutral-900 shrink-0">
+                      <span className="text-xs font-semibold text-cream shrink-0">
                         {formatPrice(item.price * item.quantity)}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div className="border-t border-neutral-100 pt-4 space-y-2 text-sm">
+                <div className="border-t border-[rgba(201,168,76,0.1)] pt-4 space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-neutral-600">Subtotal</span>
-                    <span className="text-neutral-900">{formatPrice(subtotal)}</span>
+                    <span className="text-cream-dark/70">Subtotal</span>
+                    <span className="text-cream">{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-neutral-600">Shipping</span>
-                    <span className={freeShipping ? "text-emerald-600" : "text-neutral-900"}>
+                    <span className="text-cream-dark/70">Shipping</span>
+                    <span className={freeShipping ? "text-emerald-400" : "text-cream"}>
                       {freeShipping ? "Free" : formatPrice(shippingCost)}
                     </span>
                   </div>
                   {!freeShipping && (
-                    <p className="text-xs text-neutral-500">
+                    <p className="text-xs text-gold-muted">
                       Add {formatPrice(25000 - subtotal)} more for free shipping
                     </p>
                   )}
                 </div>
 
-                <div className="border-t border-neutral-200 my-4" />
+                <div className="border-t border-[rgba(201,168,76,0.1)] my-4" />
 
                 <div className="flex justify-between text-base font-semibold mb-6">
-                  <span className="text-neutral-900">Total</span>
-                  <span className="text-neutral-900">{formatPrice(total)}</span>
+                  <span className="text-cream">Total</span>
+                  <span className="text-cream">{formatPrice(total)}</span>
                 </div>
 
                 {error && (
-                  <p className="text-red-600 text-xs mb-4 bg-red-50 px-3 py-2 rounded-sm">
+                  <p className="text-red-400 text-xs mb-4 bg-red-400/10 px-3 py-2 rounded-sm">
                     {error}
                   </p>
                 )}
@@ -398,11 +398,12 @@ export default function CheckoutPage() {
                   type="submit"
                   size="lg"
                   disabled={isSubmitting}
-                  className="w-full bg-[#C9A84C] hover:bg-[#B8973A] text-white"
+                  variant="default"
+                  className="w-full"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span className="w-4 h-4 border-2 border-cream border-t-transparent rounded-full animate-spin" />
                       Processing...
                     </span>
                   ) : (
@@ -410,7 +411,7 @@ export default function CheckoutPage() {
                   )}
                 </Button>
 
-                <p className="text-xs text-neutral-500 text-center mt-4">
+                <p className="text-xs text-gold-muted text-center mt-4">
                   Secure checkout powered by Razorpay
                 </p>
               </div>
