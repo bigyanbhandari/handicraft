@@ -6,7 +6,7 @@ import { prisma, safeQuery } from "@/lib/prisma";
 import { ProductCard } from "@/components/shared/product-card";
 import type { Product } from "@/types";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 interface CollectionPageProps {
   params: Promise<{ slug: string }>;

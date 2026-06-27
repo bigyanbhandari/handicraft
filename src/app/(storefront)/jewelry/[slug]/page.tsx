@@ -11,7 +11,7 @@ import { AddToCartBtn } from "@/components/shared/add-to-cart-btn";
 import { ImageGallery } from "@/components/shared/image-gallery";
 import type { Product } from "@/types";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;

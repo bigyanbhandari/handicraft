@@ -1,7 +1,7 @@
 import { prisma, safeQuery } from "@/lib/prisma";
 import { HomePageClient } from "@/components/home/home-page-client";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const [products, categories, collections, heroSlides, siteSettings] = await Promise.all([
