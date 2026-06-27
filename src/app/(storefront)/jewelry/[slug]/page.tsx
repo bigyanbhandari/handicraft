@@ -190,7 +190,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </div>
               )}
 
-              <Tabs defaultValue="description" className="mt-auto">
+              <Tabs defaultValue="description" className="mt-2">
                 <TabsList>
                   <TabsTrigger value="description">Description</TabsTrigger>
                   <TabsTrigger value="craft">Craft Story</TabsTrigger>

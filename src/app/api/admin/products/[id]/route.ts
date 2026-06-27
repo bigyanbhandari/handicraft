@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getUserFromRequest } from "@/lib/auth";
-import { invalidateCache } from "@/lib/cache";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -50,8 +50,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       },
       include: { category: true, collection: true },
     });
-    invalidateCache("products");
-    invalidateCache("home:featuredProducts");
+    revalidatePath("/");
+    revalidatePath("/api/products");
+    revalidatePath("/jewelry");
+    revalidatePath(`/jewelry/${product.slug}`);
     return NextResponse.json(product);
   } catch (error) {
     console.error("Admin product PUT error:", error);
@@ -68,8 +70,9 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
   const { id } = await params;
   try {
     await prisma.product.delete({ where: { id } });
-    invalidateCache("products");
-    invalidateCache("home:featuredProducts");
+    revalidatePath("/");
+    revalidatePath("/api/products");
+    revalidatePath("/jewelry");
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Admin product DELETE error:", error);

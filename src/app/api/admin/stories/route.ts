@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getUserFromRequest } from "@/lib/auth";
 
@@ -29,6 +30,8 @@ export async function POST(request: NextRequest) {
         tags: data.tags || [],
       },
     });
+    revalidatePath("/stories");
+    revalidatePath(`/stories/${post.slug}`);
     return NextResponse.json(post, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create story" }, { status: 500 });
@@ -54,6 +57,8 @@ export async function PUT(request: NextRequest) {
         tags: data.tags || [],
       },
     });
+    revalidatePath("/stories");
+    revalidatePath(`/stories/${post.slug}`);
     return NextResponse.json(post);
   } catch (error) {
     return NextResponse.json({ error: "Failed to update story" }, { status: 500 });
@@ -67,6 +72,7 @@ export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
     await prisma.blogPost.delete({ where: { id } });
+    revalidatePath("/stories");
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete story" }, { status: 500 });

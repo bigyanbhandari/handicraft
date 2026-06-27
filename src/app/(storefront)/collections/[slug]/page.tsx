@@ -60,13 +60,13 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   return (
     <main className="min-h-screen bg-white">
       <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden bg-[#1a1a1a]">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-[1]" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-[1]" />
         {collection.image ? (
           <Image
             src={collection.image}
             alt={collection.title}
             fill
-            className="object-cover"
+            className="object-contain"
             priority
             sizes="100vw"
           />

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getUserFromRequest } from "@/lib/auth";
-import { invalidateCache } from "@/lib/cache";
 
 export async function GET() {
   try {
@@ -44,8 +44,9 @@ export async function POST(request: NextRequest) {
       },
       include: { category: true, collection: true },
     });
-    invalidateCache("products");
-    invalidateCache("home:featuredProducts");
+    revalidatePath("/");
+    revalidatePath("/api/products");
+    revalidatePath("/jewelry");
     return NextResponse.json(product, { status: 201 });
   } catch (error) {
     console.error("Admin products POST error:", error);
