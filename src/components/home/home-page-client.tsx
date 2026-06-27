@@ -36,7 +36,6 @@ export function HomePageClient({ featuredProducts, categories, collections, hero
   const hasFeatured = featuredProducts.length > 0;
   const hasNewArrivals = newArrivals.length > 0;
   const hasHero = heroSlides.length > 0;
-
   const autoplayPlugins = autoplayMounted
     ? [Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })]
     : [];
